@@ -1,31 +1,43 @@
 var keys = require("./keys.js");
+var Twitter = require('twitter');
+
 var command = process.argv[2];
 
-var twitterConsumerKey = keys.twitterKeys.consumer_key;
-var twitterConsumerSecret = keys.twitterKeys.consumer_secret;
-var twitterTokenKey = keys.twitterKeys.access_token_key;
-var twitterTokenSecret = keys.twitterKeys.access_token_secret;
+var client = new Twitter({
+    consumer_key: keys.twitterKeys.consumer_key,
+    consumer_secret: keys.twitterKeys.consumer_secret,
+    access_token_key: keys.twitterKeys.access_token_key,
+    access_token_secret: keys.twitterKeys.access_token_secret
+});
+var parameters = { screen_name: 'mainhoang', count: 20 };
 
-console.log("TWITTER CONSUMER KEY: ", twitterConsumerKey);
-console.log("TWITTER CONSUMER SECRET: ", twitterConsumerSecret);
-console.log("TWITTER ACCESS TOKEN KEY: ", twitterTokenKey);
-console.log("TWITTER ACCESS TOKEN SECRET: ", twitterTokenSecret);
-console.log("===========================");
+function getTweets() {
+    client.get('statuses/user_timeline', parameters, function(error, tweets, response) {
+        if (!error) {
+            console.log("===========================");
+            for (var i = 0; i < tweets.length; i++) {
+                var name = tweets[i].user.name;
+                var text = tweets[i].text;
+                var time = tweets[i].created_at;
+                console.log(name + " tweeted, '" + text + "' on " + time + ".");
+            }
+            console.log("===========================");
+        }
+    });
+}
 
-if(command === "my-tweets"){
+if (command === "my-tweets") {
+    getTweets();
+}
+
+if (command === "spotify-this-song") {
 
 }
 
-if(command === "spotify-this-song"){
+if (command === "movie-this") {
 
 }
 
-if(command === "movie-this"){
+if (command === "do-what-it-says") {
 
 }
-
-if(command === "do-what-it-says"){
-
-}
-
-

@@ -1,0 +1,38 @@
+{
+  "name": "liri-bot",
+  "version": "1.0.0",
+  "description": "siri-wannabe",
+  "main": "keys.js",
+  "dependencies": {
+    "omdb": "^0.7.0",
+    "request": "^2.81.0",
+    "spotify": "^0.3.0",
+    "twitter": "^1.7.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mainhoang/LIRI-Bot.git"
+  },
+  "keywords": [
+    "liri",
+    "siri",
+    "twitter",
+    "tweets",
+    "spotify",
+    "music",
+    "omdb",
+    "movies",
+    "request",
+    "node.js"
+  ],
+  "author": "Mai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mainhoang/LIRI-Bot/issues"
+  },
+  "homepage": "https://github.com/mainhoang/LIRI-Bot#readme"
+}

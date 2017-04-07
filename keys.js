@@ -1,5 +1,5 @@
-console.log("KEY.JS is loaded!");
-console.log("===========================");
+// console.log("KEY.JS is loaded!");
+// console.log("===========================");
 
 exports.twitterKeys = {
   consumer_key: "FAAG4Ti3GYoKiaSl6ilXLPhxv",
