@@ -4,7 +4,7 @@
   "description": "siri-wannabe",
   "main": "keys.js",
   "dependencies": {
-    "omdb": "^0.7.0",
+    "fs": "^0.0.1-security",
     "request": "^2.81.0",
     "spotify": "^0.3.0",
     "twitter": "^1.7.0"
@@ -27,7 +27,8 @@
     "omdb",
     "movies",
     "request",
-    "node.js"
+    "fs",
+    "node"
   ],
   "author": "Mai",
   "license": "ISC",
