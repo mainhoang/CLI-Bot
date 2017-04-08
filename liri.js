@@ -4,10 +4,19 @@ var spotify = require("spotify");
 var request = require("request");
 var fs = require("fs");
 
-var command = process.argv[2];
-var input = process.argv.splice(3).join(" ");
+var firstArg = process.argv[2];
+var secondArg = process.argv.splice(3).join(" ");
 
 var liri = {
+
+	log: function(){
+		var command = firstArg + " " + secondArg + "\n";
+		fs.appendFile("log.txt", command, function(error){
+			if (error) {
+                console.log("ERROR: " + error);
+            }
+		})
+	},
 
     getTweets: function() {
         var client = new Twitter(keys);
@@ -29,9 +38,11 @@ var liri = {
                 console.log("===========================");
             }
         });
+        this.log();
     },
 
     getSong: function(input) {
+    	var self = this;
         spotify.search({ type: "track", query: input }, function(error, data) {
             console.log("===========================");
             // console.log(JSON.stringify(data, null, 2));
@@ -39,7 +50,7 @@ var liri = {
                 console.log("ERROR: " + error);
             } else if (data.tracks.items.length === 0) {
                 console.log("!!! BAD SONG for BAD INPUT !!!");
-                getSong("The Sign Ace Of Base");
+                self.getSong("The Sign Ace Of Base");
             } else {
                 var songObj = data.tracks.items[0];
                 var songName = songObj.name;
@@ -58,9 +69,11 @@ var liri = {
             }
             console.log("===========================");
         });
+        this.log();
     },
 
     getMovie: function getMovie(input) {
+        var self = this;
         request("http://www.omdbapi.com/?t=" + input + "&plot=full&tomatoes=true", function(error, response, body) {
             console.log("===========================");
             // console.log(JSON.parse(body));
@@ -69,7 +82,7 @@ var liri = {
                 console.log("ERROR: " + error);
             } else if (movieObj.Response === "False") {
                 console.log("!!! Movie not found !!!");
-                getMovie("Mr. Nobody");
+                self.getMovie("Mr. Nobody");
             } else {
                 console.log("TITLE: " + movieObj.Title);
                 console.log("YEAR RELEASED: " + movieObj.Year);
@@ -83,6 +96,7 @@ var liri = {
             }
             console.log("===========================");
         });
+        this.log();
     },
 
     getCommand: function() {
@@ -106,19 +120,20 @@ var liri = {
                 self.getCommand();
             }
         });
+        this.log();
     }
-    
+
 }
 
-if (command === "my-tweets") {
+if (firstArg === "my-tweets") {
     liri.getTweets();
 }
-if (command === "spotify-this-song") {
-    liri.getSong(input);
+if (firstArg === "spotify-this-song") {
+    liri.getSong(secondArg);
 }
-if (command === "movie-this") {
-    liri.getMovie(input);
+if (firstArg === "movie-this") {
+    liri.getMovie(secondArg);
 }
-if (command === "do-what-it-says") {
+if (firstArg === "do-what-it-says") {
     liri.getCommand();
 }
